@@ -3,7 +3,7 @@
 //  animeinterest
 //
 //  Created by Peter Denniss on 5/12/2014.
-//  Copyright (c) 2014 Tattva Inc. All rights reserved.
+//  Copyright (c) 2014 Peter Denniss All rights reserved.
 //
 
 import UIKit

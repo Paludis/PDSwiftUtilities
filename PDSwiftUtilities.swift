@@ -36,12 +36,19 @@ class PDSwiftUtilities: NSObject
     }
     
     /// Convert number like 1000 to string like "1,000"
-    class func numberStringWithCommas(number: NSNumber) -> String?
+    class func numberStringWithCommas(number: NSNumber) -> String
     {
         var numberFormatter = NSNumberFormatter()
         numberFormatter.formatterBehavior = NSNumberFormatterBehavior.Behavior10_4
         numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
-        return numberFormatter.stringFromNumber(number)
+        if let string = numberFormatter.stringFromNumber(number)
+        {
+            return string
+        }
+        else
+        {
+            return ""
+        }
     }
    
 }

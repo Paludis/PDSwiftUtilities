@@ -10,6 +10,8 @@ import UIKit
 
 class PDSwiftUtilities: NSObject
 {
+    
+    /// Get the size of the keyboard from a UIKeyboard notification
     class func kbSizeFromNotification(notification: NSNotification, view: UIView) -> CGSize
     {
         var kbSize: CGSize?
@@ -31,6 +33,15 @@ class PDSwiftUtilities: NSObject
         {
             return CGSizeZero
         }
+    }
+    
+    /// Convert number like 1000 to string like "1,000"
+    class func numberStringWithCommas(number: NSNumber) -> String?
+    {
+        var numberFormatter = NSNumberFormatter()
+        numberFormatter.formatterBehavior = NSNumberFormatterBehavior.Behavior10_4
+        numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+        return numberFormatter.stringFromNumber(number)
     }
    
 }

@@ -38,9 +38,19 @@ class PDSwiftUtilities: NSObject
     /// Convert number like 1000 to string like "1,000"
     class func numberStringWithCommas(number: NSNumber) -> String
     {
+        return self.numberStringWithCommas(number, hideNegativeSymbol: false)
+    }
+    
+    class func numberStringWithCommas(number: NSNumber, hideNegativeSymbol: Bool) -> String
+    {
         var numberFormatter = NSNumberFormatter()
         numberFormatter.formatterBehavior = NSNumberFormatterBehavior.Behavior10_4
         numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
+        if hideNegativeSymbol
+        {
+            numberFormatter.negativePrefix = ""
+        }
+        
         if let string = numberFormatter.stringFromNumber(number)
         {
             return string
@@ -48,6 +58,15 @@ class PDSwiftUtilities: NSObject
         else
         {
             return ""
+        }
+    }
+    
+    class func convertButtonImageToTemplate(button: UIButton?)
+    {
+        if let originalImage = button?.imageForState(UIControlState.Normal)
+        {
+            let templateImage = originalImage.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
+            button?.setImage(templateImage, forState: UIControlState.Normal)
         }
     }
    

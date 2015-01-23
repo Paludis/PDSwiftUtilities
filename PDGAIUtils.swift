@@ -16,5 +16,9 @@ class PDGAIUtils: NSObject
         tracker.set(kGAIScreenName, value: view)
         tracker.send(GAIDictionaryBuilder.createAppView().build())
     }
-   
+    
+    class func sendEvent(category: String, action: String, label: String?, value: NSNumber?)
+    {
+        GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory(category, action: action, label: label, value: value).build())
+    }
 }

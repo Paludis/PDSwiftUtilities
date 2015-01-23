@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import AudioToolbox
+
+var kSharedPDSwiftUtilities = PDSwiftUtilities()
 
 class PDSwiftUtilities: NSObject
 {
+    var soundID: SystemSoundID = 0
     
     /// Get the size of the keyboard from a UIKeyboard notification
     class func kbSizeFromNotification(notification: NSNotification, view: UIView) -> CGSize
@@ -67,6 +71,15 @@ class PDSwiftUtilities: NSObject
         {
             let templateImage = originalImage.imageWithRenderingMode(UIImageRenderingMode.AlwaysTemplate)
             button?.setImage(templateImage, forState: UIControlState.Normal)
+        }
+    }
+    
+    func playSound(filename: String, fileType: String)
+    {
+        if let path = NSBundle.mainBundle().pathForResource(filename, ofType: fileType)
+        {
+            AudioServicesCreateSystemSoundID(NSURL(fileURLWithPath: path), &soundID)
+            AudioServicesPlaySystemSound(soundID)
         }
     }
    

@@ -10,11 +10,14 @@ import UIKit
 
 class PDGAIUtils: NSObject
 {
-    class func sendView(view: String)
+    class func sendView(view: String?)
     {
-        var tracker = GAI.sharedInstance().defaultTracker
-        tracker.set(kGAIScreenName, value: view)
-        tracker.send(GAIDictionaryBuilder.createAppView().build())
+        if let viewString = view
+        {
+            var tracker = GAI.sharedInstance().defaultTracker
+            tracker.set(kGAIScreenName, value: view)
+            tracker.send(GAIDictionaryBuilder.createAppView().build())
+        }
     }
     
     class func sendEvent(category: String, action: String, label: String?, value: NSNumber?)

@@ -16,12 +16,12 @@ class PDGAIUtils: NSObject
         {
             var tracker = GAI.sharedInstance().defaultTracker
             tracker.set(kGAIScreenName, value: view)
-            tracker.send(GAIDictionaryBuilder.createAppView().build())
+            tracker.send(GAIDictionaryBuilder.createScreenView().build() as [NSObject : AnyObject])
         }
     }
     
     class func sendEvent(category: String, action: String, label: String?, value: NSNumber?)
     {
-        GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory(category, action: action, label: label, value: value).build())
+        GAI.sharedInstance().defaultTracker.send(GAIDictionaryBuilder.createEventWithCategory(category, action: action, label: label, value: value).build() as [NSObject : AnyObject])
     }
 }

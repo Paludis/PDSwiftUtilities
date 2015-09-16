@@ -8,6 +8,7 @@
 
 import UIKit
 import AudioToolbox
+import Photos
 
 var kSharedPDSwiftUtilities = PDSwiftUtilities()
 
@@ -22,7 +23,7 @@ class PDSwiftUtilities: NSObject
         
         if let info = notification.userInfo
         {
-            if let keyboardFrame = info[UIKeyboardFrameEndUserInfoKey]?.CGRectValue()
+            if let keyboardFrame = info[UIKeyboardFrameEndUserInfoKey]?.CGRectValue
             {
                 var convertedFrame = view.convertRect(keyboardFrame, fromView: view.window)
                 kbSize = convertedFrame.size
@@ -81,6 +82,36 @@ class PDSwiftUtilities: NSObject
             AudioServicesCreateSystemSoundID(NSURL(fileURLWithPath: path), &soundID)
             AudioServicesPlaySystemSound(soundID)
         }
+    }
+    
+    class func getImageForAsset(asset: PHAsset) -> UIImage?
+    {
+        let manager = PHImageManager.defaultManager()
+        let option = PHImageRequestOptions()
+        var image: UIImage?
+        option.synchronous = true
+        manager.requestImageDataForAsset(asset, options: option, resultHandler: { (imageData, dataUTI, UIImageOrientation, info) -> Void in
+            if let data = imageData
+            {
+                image = UIImage(data: data)
+            }
+        })
+        return image
+    }
+    
+    class func getImageForAsset(asset: PHAsset, targetSize: CGSize) -> UIImage
+    {
+        let manager = PHImageManager.defaultManager()
+        let option = PHImageRequestOptions()
+        var thumbnail = UIImage()
+        option.synchronous = true
+        manager.requestImageForAsset(asset, targetSize: targetSize, contentMode: .AspectFit, options: option, resultHandler: {(result, info)->Void in
+            if let result = result
+            {
+                thumbnail = result
+            }
+        })
+        return thumbnail
     }
     
 }

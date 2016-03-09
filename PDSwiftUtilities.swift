@@ -114,4 +114,36 @@ class PDSwiftUtilities: NSObject
         return thumbnail
     }
     
+    class func addViewsToScrollView(views: [UIView], scrollView: UIScrollView, itemPadding: CGFloat, leftMargin: CGFloat, rightMargin: CGFloat, topMargin: CGFloat, bottomMargin: CGFloat)
+    {
+        var lastView: UIView?
+        for (index, view) in views.enumerate()
+        {
+            scrollView.addSubview(view)
+            
+            if let prevView = lastView
+            {
+                // align to trailing edge of previous image if there is a previous view
+                scrollView.addConstraint(NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: prevView, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: itemPadding))
+            }
+            else
+            {
+                // align to leading edge of scroll view if the first view.
+                scrollView.addConstraint(NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: scrollView, attribute: NSLayoutAttribute.Leading, multiplier: 1, constant: leftMargin))
+            }
+            
+            // hug top and bottom of scroll view
+            scrollView.addConstraint(NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: scrollView, attribute: NSLayoutAttribute.Top, multiplier: 1, constant: topMargin))
+            scrollView.addConstraint(NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: scrollView, attribute: NSLayoutAttribute.Bottom, multiplier: 1, constant: bottomMargin))
+            
+            if index == views.count - 1
+            {
+                // last view, so add a trailing constraint to the right edge of scroll view
+                scrollView.addConstraint(NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: scrollView, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: rightMargin))
+            }
+            
+            lastView = view
+        }
+    }
+    
 }

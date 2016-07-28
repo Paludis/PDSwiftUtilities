@@ -139,7 +139,8 @@ class PDSwiftUtilities: NSObject
             if index == views.count - 1
             {
                 // last view, so add a trailing constraint to the right edge of scroll view
-                scrollView.addConstraint(NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: scrollView, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: rightMargin))
+                // needs to be negative so multiply by -1
+                scrollView.addConstraint(NSLayoutConstraint(item: view, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: scrollView, attribute: NSLayoutAttribute.Trailing, multiplier: 1, constant: rightMargin * -1))
             }
             
             lastView = view

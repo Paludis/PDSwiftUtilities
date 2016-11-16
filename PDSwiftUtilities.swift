@@ -147,4 +147,11 @@ class PDSwiftUtilities: NSObject
         }
     }
     
+    class func showOKAlert(title: String?, message: String?, viewController: UIViewController)
+    {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        viewController.presentViewController(alert, animated: true, completion: nil)
+    }
+    
 }
